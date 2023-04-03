@@ -161,7 +161,7 @@ class VirtualKeysPanel extends LitElement {
             <mwc-list>
               ${this.tokens.map(token => html`
                 <mwc-list-item hasMeta twoline @click=${e => this.listItemClick(e, token)}>
-                  <span>${token.name}</span>
+                  <span> ${token.name} Link ->  </span><a href=${this.hass.hassUrl() + 'local/community/virtual-keys/login.html?token=' + token.jwt_token}>Link</a>
                   <span slot="secondary">${token.user}, Expire: ${humanSeconds(token.remaining)}</span>
                   <mwc-icon slot="meta" @click=${e => this.deleteClick(e, token)}>${this.deleteButton()}</mwc-icon>
                 </mwc-list-item>
