@@ -132,7 +132,7 @@ class VirtualKeysPanel extends LitElement {
     const baseUrl = this.hass.hassUrl() + 'local/community/virtual-keys/login.html?token=' + token.jwt_token;
     const tokenQrUrl = this.hass.hassUrl() + 'local/community/virtual-keys/qr.html?qr=' + baseUrl + '&r=' + token.user;
 
-    window.open(tokenQrUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=200,width=560,height=610");
+    window.open(tokenQrUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=200,width=560,height=680");
   }
 
   listItemClick(e, token) {
