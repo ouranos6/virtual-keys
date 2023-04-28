@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>QR code</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    </head>
+
+    <body class="state-loading" style="margin: auto; padding-inline: 4%;">
+        <header>
+            <h1 id="title"></h1>
+        </header>
+        <main>
+            <section>
+            </section>
+            <section id="qr-code">
+            </section>
+        </main>
+        <link rel="stylesheet" href="style.css">
+        <script type="module">
+            //import QrCreator from 'https://cdn.jsdelivr.net/npm/qr-creator/dist/qr-creator.es6.min.js';
+            import QrCreator from './qr-creator.es6.min.js';
+            const urlParams = new URL(window.location.toLocaleString()).searchParams;
+            const urlQr = urlParams.get('qr');
+            const room = urlParams.get('r');
+            console.log(urlQr);
+            console.log(room);
+
+            let newContent = "QR code for the room : " + room;
+            let contentHolder = document.getElementById('title');
+            contentHolder.innerHTML = newContent;
+
+            function renderQrCode() {
+
+                let container = document.querySelector('#qr-code');
+
+                container.innerHTML = '';
+                QrCreator.render({
+                    text: urlQr,
+                    radius: 0.1, // 0.0 to 0.5
+                    ecLevel: 'H', // L, M, Q, H
+                    fill: '#536DFE', // foreground color
+                    background: null, // color or null for transparent
+                    size: 512 // in pixels
+                }, container);
+
+            }
+
+            for (let input of document.querySelectorAll('input, select')) {
+                input.addEventListener('change', renderQrCode);
+            }
+            renderQrCode();
+
+        </script>
+    </body>
+</html>
