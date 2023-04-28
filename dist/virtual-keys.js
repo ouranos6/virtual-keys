@@ -126,6 +126,15 @@ class VirtualKeysPanel extends LitElement {
       this.showAlert(err.message);
     });
   }
+  
+  qrClick(e, token) {
+    e.stopPropagation();
+    const baseUrl = this.hass.hassUrl() + 'local/community/virtual-keys/login.html?token=' + token.jwt_token;
+    const tokenQrUrl = this.hass.hassUrl() + 'local/community/virtual-keys/qr.html?qr=' + baseUrl + '&r=' + token.user;
+    console.log(tokenQrUrl);
+
+    window.open(tokenQrUrl, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=200,width=560,height=610");
+  }
 
   listItemClick(e, token) {
     const tokenLoginUrl = this.hass.hassUrl() + 'local/community/virtual-keys/login.html?token=' + token.jwt_token;
