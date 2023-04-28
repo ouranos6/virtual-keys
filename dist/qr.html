@@ -3,8 +3,55 @@
 
     <head>
         <meta charset="utf-8">
-        <title>QR code</title>
+        <title>QR Code</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <style>
+            .btn {
+                align-items: center;
+                background-clip: padding-box;
+                background-color: rgb(189, 155, 16);
+                border: 1px solid transparent;
+                border-radius: .25rem;
+                box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-flex;
+                font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-size: 16px;
+                font-weight: 600;
+                justify-content: center;
+                line-height: 1.25;
+                margin: 0;
+                min-height: 3rem;
+                padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+                position: relative;
+                text-decoration: none;
+                transition: all 250ms;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                vertical-align: baseline;
+                width: auto;
+                margin-bottom: 20px;
+                }
+
+                .btn:hover,
+                .btn:focus {
+                background-color: #fb8332;
+                box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+                }
+
+                .btn:hover {
+                transform: translateY(-1px);
+                }
+
+                .btn:active {
+                background-color: #c85000;
+                box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+                transform: translateY(0);
+                }
+                        </style>
     </head>
 
     <body class="state-loading" style="margin: auto; padding-inline: 4%;">
@@ -13,9 +60,10 @@
         </header>
         <main>
             <section>
+                <button id="download" class = "btn">Download QR Code</button>
             </section>
-            <section id="qr-code">
-            </section>
+            <canvas id="qrCode">
+            </canvas>
         </main>
         <link rel="stylesheet" href="style.css">
         <script type="module">
@@ -27,13 +75,13 @@
             console.log(urlQr);
             console.log(room);
 
-            let newContent = "QR code for the room : " + room;
+            let newContent = "QR Code for the room : " + room;
             let contentHolder = document.getElementById('title');
             contentHolder.innerHTML = newContent;
 
             function renderQrCode() {
 
-                let container = document.querySelector('#qr-code');
+                let container = document.querySelector('#qrCode');
 
                 container.innerHTML = '';
                 QrCreator.render({
@@ -51,6 +99,16 @@
                 input.addEventListener('change', renderQrCode);
             }
             renderQrCode();
+
+            const canvas = document.getElementById('qrCode');
+            const download = document.getElementById('download');
+            download.addEventListener('click', function (e) {
+                const link = document.createElement('a');
+                link.download = 'QR Code for ' + room + '.png';
+                link.href = canvas.toDataURL();
+                link.click();
+                link.delete;
+            });
 
         </script>
     </body>
